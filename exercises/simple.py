@@ -30,7 +30,7 @@ class Stack():
         """Returnerar översta värdet på stacken.
         """
         try:
-            return self.data(0)
+            return self.data[0]
         except:
             raise EmptyStack
 
@@ -45,10 +45,9 @@ class Stack():
     def size(self):
         """Returnerar antalet värden på stacken.
         """
-        try:
-            return len(self.data)
-        except:
-            raise EmptyStack
+        
+        return len(self.data)
+        
 
 
 class Queue():
@@ -63,10 +62,9 @@ class Queue():
     def enqueue(self, item):
         """Lägger till `ìtem` i slutuet på kön.
         """
-        try:
-            self.data.append(item)
-        except:
-            raise EmptyQueue
+        
+        self.data.append(item)
+        
 
     def dequeue(self):
         """Plockar bort det första värdet i kön och returnerar det.
@@ -87,7 +85,5 @@ class Queue():
     def size(self):
         """Returnerar antalet värden i kön.
         """
-        try:
-            return len(self.data)
-        except:
-            raise EmptyQueue
+        
+        return len(self.data)
