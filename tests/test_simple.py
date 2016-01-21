@@ -20,11 +20,6 @@ class StackTests(unittest.TestCase):
 		s.push(2)
 		self.assertEqual(s.size(), 1)
 
-	#def test_size_empty(self):
-	#	s = Stack()
-
-	#	self.assertEqual(s.size(), 0)
-
 	def test_pop(self):
 		s = Stack()
 		s.push(2)
@@ -61,11 +56,6 @@ class QueueTests(unittest.TestCase):
 
 		s.enqueue(2)
 		self.assertEqual(s.size(), 1)
-
-	#def test_size_empty(self):
-	#	s = Queue()
-
-	#	self.assertEqual(s.size(), 0)
 
 	def test_dequeue(self):
 		s = Queue()
