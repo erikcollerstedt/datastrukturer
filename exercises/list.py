@@ -49,17 +49,34 @@ class UnorderedList():
     def search(self, item):
         """Returnerar `True` om `item` finns i listan, annars `False`.
         """
-        pass
+        current = self.head
+
+        while current:
+            if current.data == item:
+                return True
+            current = current.next
+
+        return False
 
     def remove(self, item):
         """Raderar första förekomsten av `item` från listan.
         """
+        #if self.head = None:
+        #    raise EmptyList
         pass
 
     def append(self, item):
         """Lägg till `item` i slutet av listan.
         """
-        pass
+        if self.head is None:
+            self.head = Node(item, self.head)
+
+        current = self.head
+        while current:
+            if current.next is None:
+                current.next = Node(item, None)
+                break
+            current  = current.next
 
     def insert(self, position, item):
         """Lägg till `item` på index `position`.
