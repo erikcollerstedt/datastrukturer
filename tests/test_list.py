@@ -19,3 +19,10 @@ class ListTests(unittest.TestCase):
 		self.assertEqual(l.size(), 1)
 		l.add(13)
 		self.assertEqual(l.size(), 2)
+
+	def test_search(self):
+		l = UnorderedList()
+		self.assertFalse(l.search(3))
+		l.add(2)
+		l.add(4)
+		self.assertTrue(l.search(2))
