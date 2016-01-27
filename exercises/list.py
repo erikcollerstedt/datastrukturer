@@ -9,7 +9,8 @@ class Node():
     def __init__(self, data, next):
         """Initiera noden med attributen `self.data` och `self.next`.
         """
-        pass
+        self.data = data
+        self.next = next
 
 
 class UnorderedList():
@@ -21,22 +22,29 @@ class UnorderedList():
     def __init__(self):
         """Initiera den tomma listan.
         """
-        pass
+        self.head = None
 
     def is_empty(self):
         """Returnerar `True` om listan är tom, annars `False`.
         """
-        pass
+        return self.head is None
 
     def add(self, item):
         """Lägg till `item` i början av listan.
         """
-        pass
+        self.head = Node(item, self.head)
 
     def size(self):
         """Returnerar antalet värden i listan.
         """
-        pass
+        count = 0
+        current = self.head
+
+        while current:
+            current = current.next
+            count += 1
+
+        return count
 
     def search(self, item):
         """Returnerar `True` om `item` finns i listan, annars `False`.
