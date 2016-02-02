@@ -61,9 +61,22 @@ class UnorderedList():
     def remove(self, item):
         """Raderar första förekomsten av `item` från listan.
         """
-        #if self.head = None:
-        #    raise EmptyList
-        pass
+        if self.head == None:
+            raise EmptyList
+
+        if self.head.data == item:
+            self.head = self.head.next
+            return True
+
+        current = self.head
+        while current.next:
+            if current.next and current.next.data == item:
+                current.next = current.next.next
+
+                return True
+            current = current.next
+
+        return False
 
     def append(self, item):
         """Lägg till `item` i slutet av listan.
