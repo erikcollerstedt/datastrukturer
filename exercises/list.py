@@ -84,15 +84,36 @@ class UnorderedList():
 
     def insert(self, position, item):
         """Lägg till `item` på index `position`."""
-        pass
+        current = self.head
+        index = 0
+
+        while True:
+            if index == position:
+                self.head = Node(item, current)
+                return True
+            index += 1
+            current = current.next
 
     def index(self, item):
         """Returnerar index i listan för första förekomsten av `item`."""
-        pass
+        if self.head == None:
+            raise EmptyList
+
+        index = 0
+        current = self.head
+        while current:
+            if current == item:
+                return index
+            current = current.next
+            index += 1
+
 
     def pop(self, postition=None):
         """Plockar bort och returnerar värdet på index `position`.
 
         Om inget värde anges för `position` tolkas det som sista värdet.
         """
+        #if self.head == None:
+        #    raise EmptyList
         pass
+        

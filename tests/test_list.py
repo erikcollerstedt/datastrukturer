@@ -40,3 +40,19 @@ class ListTests(unittest.TestCase):
 		l.remove(5)
 		l.remove(2)
 		self.assertTrue(l.is_empty())
+
+	def test_append(self):
+		l = UnorderedList()
+		l.add(1)
+		l.add(2)
+		l.append(3)
+		self.assertEqual(l.head.next.next.data, 3)
+
+	def test_insert(self):
+		l = UnorderedList()
+		self.assertTrue(l.insert(0, 4))
+		l.add(5)
+		l.add(3)
+		self.assertTrue(l.insert(2, 5))
+		self.assertTrue(l.insert(0, 8))
+		self.assertTrue(l.search(8))
