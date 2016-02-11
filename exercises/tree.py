@@ -24,17 +24,46 @@ class BinarySearchTree():
 
     def insert(self, key, value=None):
         """Lägg till en nod i trädet."""
-        pass
+        if key <= self.key:
+            #vänster delträd
+            if self.left is None:
+                self.left = BinarySearchTree(key, value)
+            else:
+                self.left.insert(key, value)
+        else:
+            #höger delträd
+            if self.right is None:
+                self.right = BinarySearchTree(key, value)
+            else:
+                self.right.insert(key, value)
+
 
     def lookup(self, key):
         """Sök efter noden med matchande key.
 
         Returnerar matchande noden eller None.
         """
-        pass
+        current = self
+        while True:
+            if key == current.key:
+                return current
+            else:
+                if key > current.key:
+                    if current.right:
+                        current = current.right
+                    else:
+                        return None
+                else:
+                    if current.left:
+                        current = current.left
+                    else:
+                        return None
+
 
     def delete(self, key):
         """Radera noden med matchande key."""
+        current = self
+
         pass
 
     def traverse(self):
