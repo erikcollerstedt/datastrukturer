@@ -30,7 +30,7 @@ class TreeTests(unittest.TestCase):
     	tree.insert(6)
     	tree.insert(0)
     	tree.insert(3)
-    	self.assertEqual(tree.lookup(6).key, 6)
+    	self.assertEqual(tree.lookup(6)[0].key, 6)
 
     def test_lookup_left_exists(self):
     	tree = BinarySearchTree(4)
@@ -38,12 +38,80 @@ class TreeTests(unittest.TestCase):
     	tree.insert(3)
     	tree.insert(5)
     	tree.insert(7)
-    	self.assertEqual(tree.lookup(2).key, 2)
+    	self.assertEqual(tree.lookup(2)[0].key, 2)
 
     def test_lookup_right_not_exists(self):
     	tree = BinarySearchTree(3)
-    	self.assertEqual(tree.lookup(7), None)
+    	self.assertEqual(tree.lookup(7)[0], None)
 
     def test_lookup_left_not_exists(self):
     	tree = BinarySearchTree(3)
-    	self.assertEqual(tree.lookup(1).key, None)
+    	self.assertEqual(tree.lookup(1)[0], None)
+
+    #def test_delete_tree(self):
+	#	tree = BinarySearchTree(3)
+	# 	tree.delete(3)
+	#	self.assertRaises(Doh!, tree.delete)
+
+
+class TreeDeleteTests(unittest.TestCase):
+	def setUp(self):
+		#        10
+		#       /   \
+		#     5       15
+		#    /       /  \
+		#   2      12    20
+		#  / \
+		# 1   3
+
+		self.t = BinarySearchTree(10)
+		self.t.insert(5)
+		self.t.insert(2)
+		self.t.insert(1)
+		self.t.insert(3)
+		self.t.insert(15)
+		self.t.insert(12)
+		self.t.insert(20)
+
+	def test_delete_leaf_left(self):
+		self.t.delete(12)
+		self.assertIsNone(self.t.lookup(12)[0])
+		self.assertEqual(self.t.lookup(15)[0].key, 15)
+		self.assertEqual(self.t.lookup(20)[0].key, 20)
+
+	def test_delete_leaf_right(self):
+		self.t.delete(20)
+		self.assertIsNone(self.t.lookup(20)[0])
+		self.assertEqual(self.t.lookup(12)[0].key, 12)
+		self.assertEqual(self.t.lookup(15)[0].key, 15)
+
+	def test_delete_one_child(self):
+		self.t.delete(5)
+		self.assertIsNone(self.t.lookup(5)[0])
+		self.assertEqual(self.t.lookup(1)[0].key, 1)
+		self.assertEqual(self.t.lookup(2)[0].key, 2)
+		self.assertEqual(self.t.lookup(3)[0].key, 3)
+		self.assertEqual(self.t.lookup(10)[0].key, 10)
+
+	def test_delete_parent(self):
+		self.t.delete(2)
+		self.assertIsNone(self.t.lookup(2)[0])
+		self.assertEqual(self.t.lookup(5)[0].key, 5)
+		self.assertEqual(self.t.lookup(3)[0].key, 3)
+		self.assertEqual(self.t.lookup(1)[0].key, 1)
+
+	def test_delete_no_parent(self):
+		self.t.delete(10)
+		self.assertIsNone(self.t.lookup(10)[0])
+		self.assertEqual(self.t.lookup(5)[0].key, 5)
+
+	def test_one_child_no_parent(self):
+	#Test for one child and no parent, left side
+		self.t.delete(15)
+		self.t.delete(12)
+		self.t.delete(20)
+		self.t.delete(10)
+		self.assertEqual(self.t.lookup(5)[0].key, 5)
+		self.assertListEqual([x.key for x in self.t.lookup(2)], [2, 5])
+		self.assertListEqual([x.key for x in self.t.lookup(1)], [1, 2])
+		self.assertListEqual([x.key for x in self.t.lookup(3)], [3, 2])

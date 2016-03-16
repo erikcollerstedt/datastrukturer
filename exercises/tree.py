@@ -11,6 +11,7 @@ lagts till. I värsta fall degenererar de fullständigt.
 `Wikipedia <https://en.wikipedia.org/wiki/Binary_search_tree>`_
 """
 
+from .simple import Stack
 
 class BinarySearchTree():
     """Implementation av BinarySearchTree (BST)."""
@@ -38,7 +39,7 @@ class BinarySearchTree():
                 self.right.insert(key, value)
 
 
-    def lookup(self, key):
+    def lookup(self, key, parent=None):
         """Sök efter noden med matchande key.
 
         Returnerar matchande noden eller None.
@@ -46,32 +47,102 @@ class BinarySearchTree():
         current = self
         while True:
             if key == current.key:
-                return current
+                return current, parent
             else:
+                parent = current
                 if key > current.key:
                     if current.right:
                         current = current.right
                     else:
-                        return None
+                        return None, None
                 else:
                     if current.left:
                         current = current.left
                     else:
-                        return None
+                        return None, None
 
 
     def delete(self, key):
         """Radera noden med matchande key."""
-        current = self
+        current, parent = self.lookup(key)
 
-        pass
+        number_of_children = 0
+        if not current.left is None: 
+            number_of_children += 1
+        if not current.right is None: 
+            number_of_children += 1
+
+        if number_of_children == 0:
+            if parent:
+                if current == parent.left:
+                    parent.left = None
+                else:
+                    parent.right = None
+            else:
+                raise Exception('Doh!')
+
+        elif number_of_children == 1:
+            if parent:
+                if current == parent.left:
+                    if current.left:
+                        parent.left = current.left
+                    else:
+                        parent.left = curent.right
+                else:
+                    if current.left:
+                        parent.right = current.left
+                    else:
+                        parent.right = curent.right
+            else:
+                if current.left:
+                    current.key = current.left.key
+                    current.right = current.left.right
+                    current.value = current.left.value
+                    current.left = current.left.left
+
+                else:
+                    current.key = current.right.key
+                    current.value = current.right.value
+                    current.left = current.right.left
+                    current.right = current.right.right
+
+        elif number_of_children == 2:
+            parent = current
+            successor = current.right
+
+            while successor.left:
+                parent = successor
+                successor = successor.left
+
+            current.key = successor.key
+            current.value = successor.value
+
+            if parent.left == successor:
+                parent.left = successor.right
+            else:
+                parent.right = successor.right
+
 
     def traverse(self):
         """En in-order traversering av trädets noder.
 
         Implementera som en generator.
         """
-        pass
+        stack = Stack()
+        current = self
+
+        while not stack.is_empty() or current:
+            if current:
+                
+
+        """if self.left is not None:
+            for node in self.left.traverse():
+                yield node
+        yield self
+        if self.right is not None:
+            for node in self.right.traverse():
+                yield node"""
+
 
     def __str__(self):
         """Utskrift av trädets alla noder (in-order)."""
