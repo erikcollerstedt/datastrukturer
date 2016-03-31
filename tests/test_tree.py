@@ -48,10 +48,19 @@ class TreeTests(unittest.TestCase):
     	tree = BinarySearchTree(3)
     	self.assertEqual(tree.lookup(1)[0], None)
 
-    #def test_delete_tree(self):
-	#	tree = BinarySearchTree(3)
-	# 	tree.delete(3)
-	#	self.assertRaises(Doh!, tree.delete)
+    def test_delete_tree(self):
+    	tree = BinarySearchTree(3)
+    	self.assertRaises(Exception, tree.delete, 3)
+
+    def test_delete_one_child(self):
+    	#tesing delete nodes parent, node has one child (right side)
+	    self.t = BinarySearchTree(10)
+	    self.t.insert(15)
+	    self.t.insert(20)
+	    self.t.delete(10)
+	    self.assertEqual(self.t.lookup(15)[0].key, 15)
+	    self.assertEqual(self.t.lookup(20)[0].key, 20)
+	    self.assertIsNone(self.t.lookup(10)[0])
 
 
 class TreeDeleteTests(unittest.TestCase):
@@ -115,3 +124,11 @@ class TreeDeleteTests(unittest.TestCase):
 		self.assertListEqual([x.key for x in self.t.lookup(2)], [2, 5])
 		self.assertListEqual([x.key for x in self.t.lookup(1)], [1, 2])
 		self.assertListEqual([x.key for x in self.t.lookup(3)], [3, 2])
+
+
+	def test_traverse(self):
+		self.assertEqual([1, 2, 3, 5, 10, 12, 15, 20], [x.key for x in self.t.traverse()])
+
+	def test_str(self):
+		self.assertEqual(self.t.__str__(), '1, 2, 3, 5, 10, 12, 15, 20')
+

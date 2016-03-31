@@ -96,7 +96,7 @@ class UnorderedList():
 
     def index(self, item):
         """Returnerar index i listan för första förekomsten av `item`."""
-        if self.head == None:
+        if self.head is None:
             raise EmptyList
 
         index = 0
@@ -104,16 +104,51 @@ class UnorderedList():
         while current:
             if current == item:
                 return index
-            current = current.next
             index += 1
+            current = current.next
+            
+        return False
 
 
-    def pop(self, postition=None):
+    def pop(self, position=None):
         """Plockar bort och returnerar värdet på index `position`.
 
         Om inget värde anges för `position` tolkas det som sista värdet.
         """
-        #if self.head == None:
-        #    raise EmptyList
-        pass
+        if self.head is None:
+            raise EmptyList
+
+        if position is None:
+            value = self.head.data
+            if self.head.next is None:
+                self.head = None
+                return value
+
+            current = self.head
+            previous = self.head
+            while current.next:
+                previous = current
+                current = current.next
+            previous.next = None
+            return current.data
+
+        if position == 0:
+            value = self.head.data
+            self.head = self.head.next
+            return value
+
+        current = self.head.next
+        previous = self.head
+        index = 1
+
+        while current:
+            if position and position == index:
+                previous.next = current.next
+                return current.data
+
+            previous = current
+            current = current.next
+            index += 1
+
+        raise IndexError
         

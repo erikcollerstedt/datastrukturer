@@ -87,12 +87,12 @@ class BinarySearchTree():
                     if current.left:
                         parent.left = current.left
                     else:
-                        parent.left = curent.right
+                        parent.left = current.right
                 else:
                     if current.left:
                         parent.right = current.left
                     else:
-                        parent.right = curent.right
+                        parent.right = current.right
             else:
                 if current.left:
                     current.key = current.left.key
@@ -128,23 +128,18 @@ class BinarySearchTree():
 
         Implementera som en generator.
         """
-        stack = Stack()
-        current = self
-
-        while not stack.is_empty() or current:
-            if current:
-                
-
-        """if self.left is not None:
+        if self.left:
             for node in self.left.traverse():
                 yield node
+
         yield self
-        if self.right is not None:
+
+        if self.right:
             for node in self.right.traverse():
-                yield node"""
+                yield node
 
 
     def __str__(self):
         """Utskrift av trädets alla noder (in-order)."""
         # Använd traverse...
-        pass
+        return ', '.join([str(x.key) for x in self.traverse()])
